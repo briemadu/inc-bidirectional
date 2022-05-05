@@ -1,3 +1,7 @@
+# WARNING#
+
+[May 5, 2022] The Edit Overhead metric with delay is being incorrectly computed in the code. We will update a correction soon.
+
 # README #
 
 Code used for running experiments in the research paper:
