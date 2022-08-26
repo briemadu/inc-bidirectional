@@ -596,19 +596,45 @@ class Results():
             self.edit_overhead_d1[idx] = self._get_edit_overhead_d1(changes)
             self.edit_overhead_d2[idx] = self._get_edit_overhead_d2(changes)
     
-    # TODO merge numa funcao só com delta como parâmetro
     def _get_edit_overhead(self, changes):
-        return (changes.sum() - changes.diagonal().sum())/changes.sum()
-    
+        # for sentence classification, the necessary additions is always 1
+        # this is implicitly ensured in the line below for a n x 1 array
+        necessary_additions = changes.diagonal().sum()
+        substitutions = (changes.sum() - changes.diagonal().sum())
+        return substitutions / (substitutions + necessary_additions)
+
     def _get_edit_overhead_d1(self, changes):
-        return (changes.sum() - changes.diagonal().sum() 
-                - changes.diagonal(-1).sum())/changes.sum()
-    
+        # sentences with 1 token
+        if changes.shape[0] == 1: 
+            return 0.0
+
+        # for sentence classification, the necessary additions is always 1
+        if changes.shape[1] == 1:
+            necessary_additions = 1
+        else:
+            # for sentence tagging, it's the number of tokens - 1
+            # (we consider the two tokens on the last step as a single addition)
+            necessary_additions = changes.diagonal().sum() - 1
+
+        substitutions = (changes.sum() - changes.diagonal().sum() - changes.diagonal(-1).sum())
+        return substitutions / (substitutions + necessary_additions)
+
     def _get_edit_overhead_d2(self, changes):
-        return (changes.sum() - changes.diagonal().sum() 
-                - changes.diagonal(-1).sum() 
-                - changes.diagonal(-2).sum())/changes.sum() 
-    
+        # sentences with one or two tokens
+        if changes.shape[0] in (1, 2): 
+            return 0.0
+
+        # for sentence classification, the necessary additions is always 1
+        if changes.shape[1] == 1:
+            necessary_additions = 1
+        else:
+            # for sentence tagging, it's the number of tokens - 1
+            # (we consider the three tokens on the last step as a single addition)
+            necessary_additions = changes.diagonal().sum() - 2 
+
+        substitutions = (changes.sum() - changes.diagonal().sum() - changes.diagonal(-1).sum() 
+                         - changes.diagonal(-2).sum()) 
+        return substitutions / (substitutions + necessary_additions)
     
     def mean_edit_overhead_perlength(self, eo_dict, only_correct=False, only_incorrect=False):
         
