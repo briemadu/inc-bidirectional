@@ -1,6 +1,6 @@
-# WARNING#
+# WARNING
 
-[May 5, 2022] The Edit Overhead metric with delay is being incorrectly computed in the code. We will update a correction soon.
+[May 5, 2022] The Edit Overhead metric with delay was being incorrectly computed in the code. It has been fixed in the code. A revision will come soon, but the conclusions remain unchanged.
 
 # README #
 
