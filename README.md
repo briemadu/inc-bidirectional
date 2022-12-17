@@ -1,7 +1,3 @@
-# WARNING
-[May 5, 2022] The Edit Overhead metric with delay is being incorrectly computed in the code. We will update a correction soon.
-[Aug 26, 2022] It has been fixed in the code. The numbers change minimally. A revision will come soon, but the conclusions remain unchanged.
-
 # README #
 
 Code used for running experiments in the research paper:
@@ -9,6 +5,11 @@ Code used for running experiments in the research paper:
 MADUREIRA, Brielen & SCHLANGEN, David. Incremental Processing in the Age of Non-Incremental Encoders: An Empirical Assessment of Bidirectional Models for Incremental NLU. Proceedings of the 2020 Conference on Empirical Methods in Natural Language Processing.
 
 Check the pdf in this repository.
+
+# Warnings
+- [May 5, 2022] The Edit Overhead metric with delay is being incorrectly computed in the code. We will update a correction soon.
+- [Aug 26, 2022] It has been fixed in the code. The numbers change minimally. A revision will come soon, but the conclusions remain unchanged.
+- Known bug: the model's weight initialization seems to be overwriting the pretrained GloVe embeddings.
 
 ### What is this repository for? ###
 
