@@ -4,13 +4,6 @@ Code used for running experiments in the research paper:
 
 MADUREIRA, Brielen & SCHLANGEN, David. Incremental Processing in the Age of Non-Incremental Encoders: An Empirical Assessment of Bidirectional Models for Incremental NLU. Proceedings of the 2020 Conference on Empirical Methods in Natural Language Processing.
 
-Check the pdf in this repository.
-
-# Warnings
-- [May 5, 2022] The Edit Overhead metric with delay is being incorrectly computed in the code. We will update a correction soon.
-- [Aug 26, 2022] It has been fixed in the code. The numbers change minimally. A revision will come soon, but the conclusions remain unchanged.
-- Known bug: the model's weight initialization seems to be overwriting the pretrained GloVe embeddings.
-
 ### What is this repository for? ###
 
 We can use this code to train a neural encoder and use it either for sequence tagging or sequence classification with 10 task/dataset combinations. After training, it retrieves the incrementality evaluation metrics in the test set. Two special configurations may be added: truncated training (we sample a length to use only a prefix of each sentence during training) and prophecies (we use GPT-2 language model to generate 'prophecies' for each prefix of the sequence, and feed this hypothetical continuation to the encoder during the estimation of incrementality metrics).
@@ -131,3 +124,9 @@ Use `--help` to check all possible arguments.
     pages = "357--374",
 }   
 ```
+
+## Issues
+- [May 5, 2022] The Edit Overhead metric with delay is being incorrectly computed in the code. We will update a correction soon.
+- [Aug 26, 2022] It has been fixed in the code. The numbers change minimally. A revision will come soon, but the conclusions remain unchanged.
+- [April 2, 2024] The revision is now [on arXiv](https://arxiv.org/abs/2010.05330). 
+- Is distilbert's weight initialization overwriting the pretrained GloVe embeddings? It should be investigated further, but this was not used in the paper.
